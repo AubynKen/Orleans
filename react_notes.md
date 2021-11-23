@@ -73,5 +73,12 @@ Say we use the **Nav** compoenent from react-bootrap, but we want it to be shown
 <Nav.Link as={div} to="/login">
 ```
 
+### useParams
 
+Say we are in the url /product/:id , in order to retrieve the id, we can use the **useParams** hook from React-Router:
+
+```js
+import { useParams } from "react-router-dom";
+const { id: productId } = useParams(); 
+```
 
