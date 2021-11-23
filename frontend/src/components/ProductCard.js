@@ -1,27 +1,9 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import RatingToStars from "./RatingToStars";
 
-// converts a rating from 0 to 5 to an array of stars
-const ratingToStar = (rating) => {
-  const res = [];
-  for (let i = 0; i < Math.floor(rating); i++) {
-    res.push(<i key={i} className="fas fa-star"></i>);
-  }
-  const fractionalPart = rating - Math.floor(rating);
-  if (fractionalPart >= 0.25 && fractionalPart < 0.75) {
-    res.push(<i key={res.length + 1} className="fas fa-star-half-alt"></i>);
-  }
-  for (let i = 0; i < 5 - res.length; i++) {
-    res.push(<i key={res.lenght + 1} className="far fa-star"></i>);
-  }
-  return res;
-};
 
-ratingToStar.propTypes = {
-  rating: PropTypes.number.isRequired,
-};
 
 const ProductCard = (props) => {
   return (
@@ -36,9 +18,7 @@ const ProductCard = (props) => {
           </Link>
         </Card.Title>
         <Card.Text className="my-4" style={{ color: "black" }}>
-          <span style={{ color: "gold" }}>
-            {ratingToStar(props.product.rating)}
-          </span>
+          <RatingToStars rating={props.product.rating}/>
           /5 par {props.product.numReviews} utilisateurs.
         </Card.Text>
         <Card.Text as={"h3"}>Prix: {props.product.price}€</Card.Text>
