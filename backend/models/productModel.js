@@ -56,8 +56,25 @@ const productSchema = Schema(
         validator: Number.isInteger,
         message: "{VALUE} is not an integer value",
       },
+      default: 0,
     },
     reviews: [reviewSchema],
+    description: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    countInStock: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: Number.isInteger,
+        message: "{VALUE} is not an integer value",
+      },
+    },
   },
   { timestamps: true }
 );

@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const Products = require("../models/productModel");
-const errorHandler = require("express-async-handler");
+const asyncHandler = require("express-async-handler");
 
 const router = express.Router();
 
 router.get(
   "/",
-  errorHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const products = await Products.find({});
     res.json(products);
   })
@@ -15,7 +15,7 @@ router.get(
 
 router.get(
   "/:id",
-  errorHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Products.findById(productId);
     if (product) {
