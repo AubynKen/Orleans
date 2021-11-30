@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   Col,
   Image,
@@ -8,15 +9,27 @@ import {
   Button,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import products from "../products";
+
+// import products from "../products";
 import RatingToStars from "../components/RatingToStars";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
-  const product = products.find((el) => el._id === productId);
-  if (typeof product === "undefined") {
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [productId]);
+
+  // If empty json is fetched by axios
+  if (typeof product === "string") {
     return <UndefinedProductScreen />;
   }
+  
   return (
     <Row style={{ marginTop: "1.5rem" }}>
       <Col md={6} sm={12}>
@@ -42,7 +55,7 @@ const ProductScreen = () => {
         </ListGroup>
       </Col>
       <Col>
-        <ListGroup rounded>
+        <ListGroup rounded="true">
           <ListGroupItem>Prix: €{product.price}</ListGroupItem>
           <ListGroupItem>
             {product.countInStock > 0
@@ -50,7 +63,7 @@ const ProductScreen = () => {
               : "Actuellement Indisponible"}
           </ListGroupItem>
           <ListGroupItem>
-            <div class="d-grid gap-2">
+            <div className="d-grid gap-2">
               <Button variant="dark" className="btn btn-block" type="button">
                 Rajouter au panier
               </Button>

@@ -82,3 +82,100 @@ import { useParams } from "react-router-dom";
 const { id: productId } = useParams(); 
 ```
 
+### useState
+
+When you have a function based component, in order to use state, you can use the useState hook.
+
+More documentation can be found here: https://reactjs.org/docs/hooks-state.html
+
+```js
+const MyComponent = () => {
+  const [number, setNumber] = useState(0);
+  
+  useEffect(() => {
+    //This is equivalent to the componentDidMount and componentDidUpdate
+    setNumber(number + 1); // Increases number by one.
+  })
+}
+```
+
+#### async useEffect
+
+useEffect, contrary to componentDidUpdate, cannot return a promise. Therefore it cannot be async.
+
+However, you can wrap an async function in it.
+
+```js
+useEffect(() => {
+  const myFunction = async () => {/* some async operations happen here */};
+  myFunction();
+})
+```
+
+---
+
+### npm scripts
+
+In the package.json, in the script section:
+
+```json
+  "scripts": {
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix frontend",
+  },
+```
+
+with these examples:
+
+```terminal
+npm start
+```
+
+will be equivalent to:
+
+```terminal
+node backend/index.js
+```
+
+and
+
+```terminal
+npm run server
+```
+
+```terminal
+nodemon backend/index.js
+```
+
+and
+
+```terminal
+npm run client
+```
+
+```
+cd frontend
+npm start
+cd ..
+```
+
+
+
+### concurrently
+
+```terminal
+npm install concurrently
+```
+
+Once concurrently is installed, you can run two commands at the same time concurrently.
+
+```json
+  "scripts": {
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+  },
+```
+

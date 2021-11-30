@@ -1,0 +1,29 @@
+{
+  "name": "orleans",
+  "version": "1.0.0",
+  "description": "An amazon clone app created for practicing React and preparing for the Digital Tech Year",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AubynKen/Orleans.git"
+  },
+  "author": "Pinglei He",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AubynKen/Orleans/issues"
+  },
+  "homepage": "https://github.com/AubynKen/Orleans#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15"
+  }
+}

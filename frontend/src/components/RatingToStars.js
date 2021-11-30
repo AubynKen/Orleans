@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 
 const RatingToStars = (props) => {
   const rating = props.rating;
@@ -12,15 +12,13 @@ const RatingToStars = (props) => {
     res.push(<i key={res.length + 1} className="fas fa-star-half-alt"></i>);
   }
   for (let i = 0; i < 5 - res.length; i++) {
-    res.push(<i key={res.lenght + 1} className="far fa-star"></i>);
+    res.push(<i key={res.length + 1} className="far fa-star"></i>);
   }
-  return (
-    <span style={{ color: "gold" }}>{res}</span>
-  );
+  return <span style={{ color: "gold" }}>{res}</span>;
 };
 
 RatingToStars.propTypes = {
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
 };
 
-export default RatingToStars
+export default RatingToStars;
