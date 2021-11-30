@@ -47,7 +47,7 @@ const productSchema = Model(
       type: Number,
       required: true,
       default: 0,
-      get: (value) => Math.round(value * 10) / 10, // Only round to 1 decimal points
+      //get: (value) => Math.round(value * 10) / 10, // Only round to 1 decimal points
     },
     reviewCount: {
       type: Number,
