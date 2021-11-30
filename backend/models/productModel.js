@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const { Model, Schema } = mongoose;
+const { Schema } = mongoose;
 
-const reviewSchema = Model({
+const reviewSchema = Schema({
   name: {
     type: String,
     required: true,
@@ -20,7 +20,7 @@ const reviewSchema = Model({
   },
 });
 
-const productSchema = Model(
+const productSchema = Schema(
   {
     name: {
       type: String,
@@ -35,7 +35,7 @@ const productSchema = Model(
       type: String,
       required: true,
     },
-    imageURL: {
+    image: {
       type: String,
       required: true,
     },
@@ -49,7 +49,7 @@ const productSchema = Model(
       default: 0,
       //get: (value) => Math.round(value * 10) / 10, // Only round to 1 decimal points
     },
-    reviewCount: {
+    numReviews: {
       type: Number,
       required: true,
       validate: {
@@ -62,5 +62,5 @@ const productSchema = Model(
   { timestamps: true }
 );
 
-const productModel = Model("Product", productSchema);
+const productModel = mongoose.model("Product", productSchema);
 module.exports = productModel;

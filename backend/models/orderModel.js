@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Model, Schema } = mongoose;
+const { Schema } = mongoose;
 
 const orderSchema = Schema(
   {
@@ -74,6 +74,6 @@ const orderSchema = Schema(
   }
 );
 
-const orderModel = Model("Order", orderSchema);
+const orderModel = mongoose.model("Order", orderSchema);
 
 module.exports = orderModel;

@@ -8,7 +8,7 @@
     "server": "nodemon backend/index.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "seeder": "node backend/seeder.js",
+    "seeder": "node backend/seeder.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/AubynKen/Orleans#readme",
   "dependencies": {
     "axios": "^0.24.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.13",
