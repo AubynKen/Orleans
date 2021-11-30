@@ -6,7 +6,6 @@ import axios from "axios";
 export default class HomeScreen extends Component {
   constructor() {
     super();
-    this._isMounted = false;
     this.state = {
       products: [],
     };
@@ -18,18 +17,8 @@ export default class HomeScreen extends Component {
   };
 
   async componentDidMount() {
-    this._isMounted = true;
     const products = await this.fetchProducts();
-    this._isMounted && this.setState({ products: products });
-  }
-
-  async componentDidUpdate() {
-    const products = await this.fetchProducts();
-    this._isMounted && this.setState({ products: products });
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
+    this.setState({ products: products });
   }
 
   render() {
