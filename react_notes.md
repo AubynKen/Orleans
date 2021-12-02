@@ -179,3 +179,19 @@ Once concurrently is installed, you can run two commands at the same time concur
   },
 ```
 
+---
+
+### Redux
+
+Setup:
+
+```terminal
+npm install redux react-redux redux-thunk redux-devtools-extension
+```
+
+Redux: Redux is not associated to redux, it is a stand alone package.
+
+React-redux: Interaction between react and redux
+
+Redux-thunk: Allows asynchronous actions
+
