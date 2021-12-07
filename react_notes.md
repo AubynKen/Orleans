@@ -195,3 +195,56 @@ React-redux: Interaction between react and redux
 
 Redux-thunk: Allows asynchronous actions
 
+Redux-devtools-extension: For the redux extension to work in the browser.
+
+---
+
+## basic setup
+
+```js
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+
+const reducer = combineReducers({});
+
+const initialState = {};
+
+const middlewares = [thunk]
+
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middlewares)))
+
+export default store;
+```
+
+**CombineReducers** takes multiple reducers and combine them into a single reducer.
+
+This can be beneficial for file restructuring purposes, you mighth ave different reducers created in different files, and you combine them into a single reducer.
+
+The **createStore** function takes in : 1 the reducer, 2 an initial state, 3 enhancers (optional)
+
+**Enhancers** allow us to add third-party functionalities into the redux store. The only default enhancers that comes with redux is **applyMiddleware**, which takes in middlewares. A **middleware** is a wrapper function of dispatch functions.
+
+When you wrap "applyMiddleware(...middleware)" with **composeWithDevTools**, this allows us to use the devtools extension in the browser.
+
+---
+
+### Provider
+
+In order for our app to be able to access the redux states everywhere, we have to use the **Provider** function.
+
+In index.js:
+
+```jsx
+// import other necessary stuff
+import { Provider } from "react-redux";
+import store from "./store.js";
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
