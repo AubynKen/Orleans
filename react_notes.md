@@ -206,7 +206,10 @@ import { combineReducers, createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
-const reducer = combineReducers({});
+const reducer = combineReducers({
+  productList: productListReducer // see below
+  // We will now have a "productList" part for the state.
+});
 
 const initialState = {};
 
@@ -246,5 +249,90 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+```
+
+---
+
+### Redux action
+
+An action usually has two fields: 
+
+- a **type** telling the reducer what kind of action this is 
+- a **payload** giving the reducer the necessary information for the reducer to actually do the action
+
+(An action is more of an "order" to the reducer to achieve the action)
+
+```js
+const actionExample = {
+  type: "PRODUCT_LIST_SUCCESS", //telling the reducer that we've retrieved the products
+  payload: [product1, product2, product3, product4] // the actual information
+}
+```
+
+---
+
+### Redux reducer
+
+A reducer takes in the **current state** and an **action,** and outputs the next state.
+
+Example: A product list reducer, which depending on the action given, returns the next state containing information about the products.
+
+```js
+export const productListReducer = (state = { products: [] }, action) => {
+  switch(action.type) {
+    case "PRODUCT_LIST_REQUEST":
+      return { loading: true, products: [] };
+    case "PRODUCT_LIST_SUCCESS":
+      return { loading: false, products: action.payload };
+    case "PRODUCT_LIST_FAIL":
+      return { loading: false, error: action.payload };
+    default:
+      return state
+  }
+}
+```
+
+**Explanation**:
+
+- the (state= { products: [] }) simply specifies the initial state of the store. (When an initial state is set for the store, this parameter is overwriten by the initial state set in the store)
+- **Product_list_request**: If there's a request to the server, we wait for the products to load, so we the products of the next state is still empty (until the loading succeeds). 
+- **Product_list_success**: When the reducer gets notified that the product list has been successfully loaded, we set loading to be false in the next state, and we set products to be the list of products that we fetched successfully from the backend.
+- **Product_list_fail**: Obvious.
+- There must be a default behavior, and the default behavior is not changing the state.
+
+Notice that every time the reducer must return a newly created state object, and not modify the old one.
+
+### Use constants for action types
+
+It is common practice to save the action type strings in a separate file (productConstatnts.js for instance):
+
+```js
+export PRODUCT_LIST_REQUEST = "PRODUCT_LIST_REQUEST";
+export PRODUCT_LIST_SUCCESS = "PRODUCT_LIST_SUCCESS";
+// etc etc
+```
+
+And to import these constants in the reducer file. This allows intellisense to work to avoid errors due to typo.
+
+---
+
+### Redux event handler
+
+The a generic event handler is a function that returns an action object.
+
+```javascript
+const productList = () => {
+  //... some logic here
+  return {type: "SOME_TYPE", payload: "Some payload"}
+}
+```
+
+With thunk applied as middleware, instead of returning an action object directly, we can return a function which uses the dispatch function. This allows for asyncronous actions:
+
+```js
+const productList = () => async () => {
+  //... some async logic here
+  dispatch({type: "SOME_TYPE", payload: "Some payload"})
+}
 ```
 
