@@ -336,3 +336,31 @@ const productList = () => async () => {
 }
 ```
 
+---
+
+## Using the state
+
+```jsx
+const myComponent = () => {
+  
+  // so we can dispatch actions
+  const dispatch = useDispatch();
+  
+  // fetch the products to state by dispatching the listProducts action
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch]);
+  
+  const {products, loading} = useSelector(state => state.productList);
+  // The state looks something like this:
+  //state = {
+  //  productList: {
+  //    products: [...],
+  //    loading: True,
+  //  }
+  //  and some other attributse
+  //}
+  // We are extracting the productList part from the state that we're using.
+}
+```
+

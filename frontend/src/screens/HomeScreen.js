@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 import ProductCard from "../components/ProductCard";
 import Loading from "../components/Loading";
+import Message from "../components/Message";
 
 import { listProducts } from "../actions/productActions";
 
@@ -24,7 +25,7 @@ const HomeScreen = () => {
       {loading ? (
         <Loading />
       ) : error ? (
-        <h2>{error}</h2>
+        <Message variant="danger">{error}</Message>
       ) : (
         <Container>
           <Row>
