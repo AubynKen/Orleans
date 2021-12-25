@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
+
 import ProductCard from "../components/ProductCard";
+import Loading from "../components/Loading";
+
 import { listProducts } from "../actions/productActions";
-import axios from "axios";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const HomeScreen = () => {
     <>
       <h1 style={{ fontWeight: "200" }}>Nos derniers produits</h1>
       {loading ? (
-        <h2>En train de charger...</h2>
+        <Loading />
       ) : error ? (
         <h2>{error}</h2>
       ) : (
