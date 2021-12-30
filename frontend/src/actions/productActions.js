@@ -3,6 +3,9 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
+  PRODUCT_DETAIl_REQUEST,
+  PRODUCT_DETAIL_SUCCESS,
+  PRODUCT_DETAIL_FAIL,
 } from "../constants/productConstants";
 
 export const listProducts = () => async (dispatch) => {
@@ -27,5 +30,26 @@ export const listProducts = () => async (dispatch) => {
         payload: err.message, // generic error
       });
     }
+  }
+};
+
+export const listProductDetails = (productId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: PRODUCT_DETAIl_REQUEST,
+    });
+    const { data: productData } = await axios.get(`/api/products/${productId}`);
+    dispatch({
+      type: PRODUCT_DETAIL_SUCCESS,
+      payload: productData,
+    });
+  } catch (err) {
+    dispatch({
+      type: PRODUCT_DETAIL_FAIL,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    });
   }
 };
