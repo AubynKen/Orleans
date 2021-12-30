@@ -100,8 +100,9 @@ const ProductScreen = () => {
                     variant="dark"
                     className="btn btn-block"
                     type="button"
+                    disabled={product.countInStock === 0}
                   >
-                    Rajouter au panier
+                    Ajouter au panier
                   </Button>
                 </div>
               </ListGroupItem>
