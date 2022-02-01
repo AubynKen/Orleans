@@ -8,7 +8,7 @@ import {
   Button,
   FormSelect,
 } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
 
@@ -16,8 +16,10 @@ import Loading from "../components/Loading";
 import Message from "../components/Message";
 import RatingToStars from "../components/RatingToStars";
 
-const ProductScreen = () => {
+const ProductScreen = ({}) => {
   const { id: productId } = useParams();
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -29,6 +31,10 @@ const ProductScreen = () => {
 
   const handleCountChange = (e) => {
     setQuantity(e.target.value);
+  };
+
+  const handleAddToCart = () => {
+    navigate(`/cart/${productId}?quantity=${quantity}`);
   };
 
   useEffect(() => {
@@ -101,6 +107,7 @@ const ProductScreen = () => {
                     className="btn btn-block"
                     type="button"
                     disabled={product.countInStock === 0}
+                    onClick={handleAddToCart}
                   >
                     Ajouter au panier
                   </Button>
