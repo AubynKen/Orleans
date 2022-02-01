@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Col,
-  Image,
-  ListGroup,
-  ListGroupItem,
-  Row,
-  Button,
-  FormSelect,
-} from "react-bootstrap";
+import { Col, Image, ListGroup, ListGroupItem, Row, Button, FormSelect } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
@@ -25,9 +17,7 @@ const ProductScreen = ({}) => {
 
   const [quantity, setQuantity] = useState(1);
 
-  const { product, loading, error } = useSelector(
-    (state) => state.productDetails
-  );
+  const { product, loading, error } = useSelector((state) => state.productDetails);
 
   const handleCountChange = (e) => {
     setQuantity(e.target.value);
@@ -64,8 +54,7 @@ const ProductScreen = ({}) => {
               </ListGroupItem>
               <ListGroupItem>
                 <p>
-                  <RatingToStars rating={product.rating} /> par{" "}
-                  {product.numReviews} utilisateurs
+                  <RatingToStars rating={product.rating} /> par {product.numReviews} utilisateurs
                 </p>
               </ListGroupItem>
               <ListGroupItem>
@@ -79,20 +68,14 @@ const ProductScreen = ({}) => {
           <Col>
             <ListGroup rounded="true">
               <ListGroupItem>Prix: €{product.price}</ListGroupItem>
-              <ListGroupItem>
-                {product.countInStock > 0
-                  ? "En Stock"
-                  : "Actuellement Indisponible"}
-              </ListGroupItem>
+              <ListGroupItem>{product.countInStock > 0 ? "En Stock" : "Actuellement Indisponible"}</ListGroupItem>
               {product.countInStock > 0 && (
                 <ListGroup.Item>
                   <Row>
                     <Col>Quantité :</Col>
                     <Col>
                       <FormSelect value={quantity} onChange={handleCountChange}>
-                        {[
-                          ...Array(Math.min(12, product.countInStock)).keys(),
-                        ].map((x) => (
+                        {[...Array(Math.min(12, product.countInStock)).keys()].map((x) => (
                           <option value={x + 1}>{x + 1}</option>
                         ))}
                       </FormSelect>
@@ -120,13 +103,5 @@ const ProductScreen = ({}) => {
     </>
   );
 };
-
-// const UndefinedProductScreen = () => {
-//   return (
-//     <p style={{ fontSize: "3rem" }}>
-//       Oups, le produit que vous cherchez n’existe pas.
-//     </p>
-//   );
-// };
 
 export default ProductScreen;
