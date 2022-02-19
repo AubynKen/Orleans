@@ -28,5 +28,8 @@
     "express-async-handler": "^1.2.0",
     "mongoose": "^6.0.13",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "prettier": "2.5.1"
   }
 }
