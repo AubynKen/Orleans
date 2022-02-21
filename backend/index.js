@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+const bp = require("body-parser");
 const connectDB = require("./config/db.js");
 const errorHandler = require("./utils/errorHandler.js");
 
+// Body Parser
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
+
 /// Routers
 const productRoutes = require("./routes/productRoutes.js");
+const userRoutes = require("./routes/userRoutes.js");
 
 // Configuration for using process.env
 dotenv.config();
@@ -18,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
 // if none of the above routes is matched
 app.use((req, res, next) => {
