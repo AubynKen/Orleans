@@ -33,3 +33,32 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 module.exports = { authenticateUser, getUserProfile };
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+const generateToken = require("../utils/generateToken");
+
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+  const userFound = await User.findOne({ email });
+  if (userFound) {
+    res.status(409);
+    throw new Error("L’adresse mail a déjà été utilisé.");
+  }
+  const user = User.create({
+    name,
+    email,
+    password,
+  });
+  if (user) {
+    res.json({
+      __id: user.__id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user.__id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("Données d’utilisateur invalides.");
+  }
+});
